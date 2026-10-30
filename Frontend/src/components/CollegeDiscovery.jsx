@@ -32,7 +32,7 @@ export default function CollegeDiscovery({ user }) {
     useEffect(() => {
         setPortalNode(document.getElementById('navbar-portal-target'));
         if (user && user.id) {
-            fetch(`http://localhost:5000/api/cart/${user.id}`)
+            fetch(`[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/cart/${user.id}`)
                 .then(res => res.json())
                 .then(data => setSavedChoices(data))
                 .catch(err => console.error("Error loading cart:", err));
@@ -57,7 +57,7 @@ export default function CollegeDiscovery({ user }) {
         const currentRound = overrideRound !== null ? overrideRound : formData.round;
 
         try {
-            const response = await fetch('http://localhost:5000/api/discover-colleges', {
+            const response = await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/discover-colleges', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, rank: targetRank, round: currentRound, page: currentPage, limit: 50 })
@@ -97,7 +97,7 @@ export default function CollegeDiscovery({ user }) {
         const isSaved = savedChoices.some(c => c.institute === course.institute && c.program === course.program);
         if (isSaved) {
             try {
-                await fetch('http://localhost:5000/api/cart', {
+                await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/cart', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ user_id: user.id, institute: course.institute, program: course.program })
@@ -106,7 +106,7 @@ export default function CollegeDiscovery({ user }) {
             } catch (err) { console.error("Failed to remove", err); }
         } else {
             try {
-                const response = await fetch('http://localhost:5000/api/cart', {
+                const response = await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/cart', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -137,7 +137,7 @@ export default function CollegeDiscovery({ user }) {
         setChartLoading(true);
         setChartData([]);
         try {
-            const response = await fetch('http://localhost:5000/api/trends', {
+            const response = await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/trends', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ institute: course.institute, program: course.program, category: formData.category, gender: formData.gender, quota: course.quota })

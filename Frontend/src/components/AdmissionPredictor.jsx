@@ -20,7 +20,7 @@ export default function AdmissionPredictor({ user }) {
     useEffect(() => {
         const fetchInstitutes = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/institutes');
+                const response = await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/institutes');
                 if (!response.ok) throw new Error('Failed to fetch institutes');
                 const data = await response.json();
                 setInstitutes(data);
@@ -40,7 +40,7 @@ export default function AdmissionPredictor({ user }) {
                 return;
             }
             try {
-                const response = await fetch('http://localhost:5000/api/programs', {
+                const response = await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/programs', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ institute: formData.institute })
@@ -75,7 +75,7 @@ export default function AdmissionPredictor({ user }) {
         setPrediction(null);
 
         try {
-            const response = await fetch('http://localhost:5000/api/predict', {
+            const response = await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

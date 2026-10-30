@@ -10,7 +10,7 @@ export default function ChoiceCart({ user }) {
 
     useEffect(() => {
         if (user && user.id) {
-            fetch(`http://localhost:5000/api/cart/${user.id}`)
+            fetch(`[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/cart/${user.id}`)
                 .then(res => res.json())
                 .then(data => setSavedChoices(data))
                 .catch(err => console.error("Error loading cart:", err));
@@ -19,7 +19,7 @@ export default function ChoiceCart({ user }) {
 
     const toggleChoice = async (course) => {
         try {
-            await fetch('http://localhost:5000/api/cart', {
+            await fetch('[https://dbms-project-ql4v.onrender.com](https://dbms-project-ql4v.onrender.com)/api/cart', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user_id: user.id, institute: course.institute, program: course.program })
