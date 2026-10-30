@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { API_BASE } from '../config'; // <-- Centralized config import
 
 export default function ChoiceCart({ user }) {
     const [savedChoices, setSavedChoices] = useState([]);
@@ -10,7 +11,7 @@ export default function ChoiceCart({ user }) {
 
     useEffect(() => {
         if (user && user.id) {
-            fetch(`[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/cart/${user.id}`)
+            fetch(`${API_BASE}/api/cart/${user.id}`)
                 .then(res => res.json())
                 .then(data => setSavedChoices(data))
                 .catch(err => console.error("Error loading cart:", err));
@@ -19,7 +20,7 @@ export default function ChoiceCart({ user }) {
 
     const toggleChoice = async (course) => {
         try {
-            await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/cart', {
+            await fetch(`${API_BASE}/api/cart`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user_id: user.id, institute: course.institute, program: course.program })

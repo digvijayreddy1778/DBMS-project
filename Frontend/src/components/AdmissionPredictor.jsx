@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../config'; // <-- Centralized config import
 
 export default function AdmissionPredictor({ user }) {
     const [institutes, setInstitutes] = useState([]);
@@ -20,7 +21,7 @@ export default function AdmissionPredictor({ user }) {
     useEffect(() => {
         const fetchInstitutes = async () => {
             try {
-                const response = await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/institutes');
+                const response = await fetch(`${API_BASE}/api/institutes`);
                 if (!response.ok) throw new Error('Failed to fetch institutes');
                 const data = await response.json();
                 setInstitutes(data);
@@ -40,7 +41,7 @@ export default function AdmissionPredictor({ user }) {
                 return;
             }
             try {
-                const response = await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/programs', {
+                const response = await fetch(`${API_BASE}/api/programs`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ institute: formData.institute })
@@ -75,7 +76,7 @@ export default function AdmissionPredictor({ user }) {
         setPrediction(null);
 
         try {
-            const response = await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/predict', {
+            const response = await fetch(`${API_BASE}/api/predict`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

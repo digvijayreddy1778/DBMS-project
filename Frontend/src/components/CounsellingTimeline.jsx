@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE } from '../config'; // <-- Centralized config import
 
 export default function CounsellingTimeline() {
     // Note: These dates are simulated. In production, you would fetch these from your PostgreSQL config table.

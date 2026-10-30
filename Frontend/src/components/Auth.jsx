@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_BASE } from '../config'; // <-- Import your centralized config
 
 export default function Auth({ onLoginSuccess }) {
     const [isSignup, setIsSignup] = useState(false);
@@ -15,7 +16,7 @@ export default function Auth({ onLoginSuccess }) {
         const endpoint = isSignup ? '/api/signup' : '/api/login';
 
         try {
-            const response = await fetch(`https://dbms-project-b9vv.onrender.com${endpoint}`, {
+            const response = await fetch(`${API_BASE}${endpoint}`, { // <-- Uses clean API_BASE variable
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })

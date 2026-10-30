@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { API_BASE } from '../config'; // <-- Centralized config import
 
 export default function CollegeDiscovery({ user }) {
     const [isDarkMode, setIsDarkMode] = useState(true);
@@ -32,7 +33,7 @@ export default function CollegeDiscovery({ user }) {
     useEffect(() => {
         setPortalNode(document.getElementById('navbar-portal-target'));
         if (user && user.id) {
-            fetch(`[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/cart/${user.id}`)
+            fetch(`${API_BASE}/api/cart/${user.id}`)
                 .then(res => res.json())
                 .then(data => setSavedChoices(data))
                 .catch(err => console.error("Error loading cart:", err));
@@ -57,7 +58,7 @@ export default function CollegeDiscovery({ user }) {
         const currentRound = overrideRound !== null ? overrideRound : formData.round;
 
         try {
-            const response = await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/discover-colleges', {
+            const response = await fetch(`${API_BASE}/api/discover-colleges`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, rank: targetRank, round: currentRound, page: currentPage, limit: 50 })
@@ -97,7 +98,7 @@ export default function CollegeDiscovery({ user }) {
         const isSaved = savedChoices.some(c => c.institute === course.institute && c.program === course.program);
         if (isSaved) {
             try {
-                await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/cart', {
+                await fetch(`${API_BASE}/api/cart`, {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ user_id: user.id, institute: course.institute, program: course.program })
@@ -106,7 +107,7 @@ export default function CollegeDiscovery({ user }) {
             } catch (err) { console.error("Failed to remove", err); }
         } else {
             try {
-                const response = await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/cart', {
+                const response = await fetch(`${API_BASE}/api/cart`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -137,7 +138,7 @@ export default function CollegeDiscovery({ user }) {
         setChartLoading(true);
         setChartData([]);
         try {
-            const response = await fetch('[https://dbms-project-b9vv.onrender.com](https://dbms-project-b9vv.onrender.com)/api/trends', {
+            const response = await fetch(`${API_BASE}/api/trends`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ institute: course.institute, program: course.program, category: formData.category, gender: formData.gender, quota: course.quota })
