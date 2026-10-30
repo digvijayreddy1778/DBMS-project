@@ -15,7 +15,8 @@ export default function Auth({ onLoginSuccess }) {
         const endpoint = isSignup ? '/api/signup' : '/api/login';
 
         try {
-                const response = await fetch(`https://dbms-project-ql4v.onrender.com${endpoint}`, {               method: 'POST',
+            const response = await fetch(`https://dbms-project-b9vv.onrender.com${endpoint}`, {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
